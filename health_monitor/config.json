@@ -1,0 +1,22 @@
+{
+  "output_dir": "../exemplosdesaida/saidasraw",
+  "thresholds": {
+    "disk_usage_warning": 80,
+    "disk_usage_critical": 90,
+    "memory_usage_warning": 80,
+    "memory_usage_critical": 95,
+    "cpu_load_warning": 2.0,
+    "cpu_load_critical": 4.0,
+    "cpu_temp_warning": 70,
+    "cpu_temp_critical": 85,
+    "swap_usage_warning": 50,
+    "swap_usage_critical": 80
+  },
+  "monitoring": {
+    "check_smart": true,
+    "check_systemd_services": true,
+    "check_journal_errors": true,
+    "journal_errors_hours": 24,
+    "network_check_hosts": ["8.8.8.8", "1.1.1.1"]
+  }
+}

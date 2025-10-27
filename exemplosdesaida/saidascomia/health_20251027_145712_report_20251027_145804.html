@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Saúde - localhost.localdomain</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .timestamp {
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .status-healthy {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+
+        .status-critical {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .alert-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid;
+        }
+
+        .alert-critical {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .alert-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .alert-box p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .alert-box .solution {
+            background: rgba(255,255,255,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+        }
+
+        .metric-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .metric-card .label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .metric-card .value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .metric-card .subtext {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .progress-ok { background: #28a745; }
+        .progress-warning { background: #ffc107; }
+        .progress-critical { background: #dc3545; }
+
+        .recommendation-list {
+            list-style: none;
+            counter-reset: recommendation;
+        }
+
+        .recommendation-list li {
+            counter-increment: recommendation;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .recommendation-list li::before {
+            content: counter(recommendation);
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        .priority-high::before { background: #dc3545 !important; }
+        .priority-medium::before { background: #ffc107 !important; }
+        .priority-low::before { background: #28a745 !important; }
+
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #0c5460;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 3px solid #667eea;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .text-content {
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .text-content p {
+            margin-bottom: 15px;
+        }
+
+        .text-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .text-content li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .text-content strong {
+            color: #333;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🏥 Relatório de Saúde do Sistema</h1>
+            <div class="subtitle">localhost.localdomain</div>
+            <div class="timestamp">⏰ 2025-10-27T14:57:10.650436</div>
+        </div>
+
+        <div class="content">
+            <!-- STATUS GERAL -->
+            <div class="section">
+                <span class="status-badge status-healthy">
+                    🟢 Status: Saudável
+                </span>
+                
+                <!-- Métricas Rápidas -->
+                <div class="metrics-grid">
+                    
+                    <div class="metric-card">
+                        <div class="icon">💾</div>
+                        <div class="label">Uso do Disco Raiz</div>
+                        <div class="value">15.3%</div>
+                        <div class="subtext">Muito espaço livre (12.65 GB)</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="icon">🧠</div>
+                        <div class="label">Uso da RAM</div>
+                        <div class="value">13.2%</div>
+                        <div class="subtext">3.31 GB de 3.81 GB disponível</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="icon">⚡</div>
+                        <div class="label">Load Average (1 min)</div>
+                        <div class="value">0.0</div>
+                        <div class="subtext">Sistema praticamente ocioso</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="icon">⏰</div>
+                        <div class="label">Uptime</div>
+                        <div class="value">16 min</div>
+                        <div class="subtext">Sistema recém-inicializado</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="icon">📉</div>
+                        <div class="label">Pacotes Perdidos </div>
+                        <div class="value">489</div>
+                        <div class="subtext">Entradas: Atenção!</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="icon">✅</div>
+                        <div class="label">Serviços Falhos</div>
+                        <div class="value">0</div>
+                        <div class="subtext">Todos os serviços essenciais ativos</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RESUMO EXECUTIVO -->
+            <div class="section">
+                <h2 class="section-title">📊 Resumo Executivo</h2>
+                <div class="text-content">
+                    Olá, colega! Analisando o relatório do seu servidor Fedora 42, percebo que ele está em um estado geral muito saudável. É um sistema recém-inicializado, com apenas 16 minutos de uptime, o que explica o baixo uso de recursos. A maioria dos componentes, como disco, memória e CPU, operam com folga. Os serviços essenciais do sistema estão ativos e funcionando sem problemas aparentes. No entanto, identifiquei alguns pontos que merecem sua atenção para garantir a estabilidade e otimização a longo prazo, principalmente relacionados à rede e a alguns avisos nos logs que indicam configurações ou permissões que podem ser ajustadas. Mas, no geral, é um bom ponto de partida!
+                </div>
+            </div>
+
+            <!-- ALERTAS -->
+            
+            <div class="section">
+                <h2 class="section-title">🚨 Alertas e Problemas</h2>
+
+                <div class="alert-box alert-warning">
+                    <h4>Perda de Pacotes na Interface de Rede </h4>
+                    <p><strong>Situação:</strong> A interface de rede, que é a sua conexão principal, registrou 489 pacotes 'drops_in' (pacotes recebidos e descartados) em apenas 16 minutos de operação. Isso é um sinal de que algo não está certo na comunicação da rede.</p>
+                    <p><strong>Por que isso importa:</strong> A perda de pacotes pode levar a lentidão na rede, falhas de conexão, interrupções em serviços que dependem de comunicação constante e degradação geral da performance da rede para este servidor.</p>
+
+                    <div class="solution">
+                        <strong>O que fazer:</strong><br>
+                        Verifique a infraestrutura de rede (cabos, switch, configuração do firewall externo, hypervisor se for VM), drivers da placa de rede (`sudo ethtool -i {nome_da_rede}` e `sudo dmesg | grep {nome_da_rede}`), e configurações de rede do próprio servidor. Reiniciar a interface pode ajudar (`sudo ip link set dev {nome_da_rede} down && sudo ip link set dev {nome_da_rede} up`).
+                    </div>
+
+                </div>
+
+                <div class="alert-box alert-warning">
+                    <h4>irqbalance com Permissão Negada para IRQs</h4>
+                    <p><strong>Situação:</strong> O serviço `irqbalance`, responsável por distribuir as interrupções de hardware entre os núcleos da CPU para otimizar o desempenho, relatou 'Permission denied' para alterar a afinidade das IRQs 43 e 44. Isso significa que ele não conseguiu gerenciar essas interrupções como deveria.</p>
+                    <p><strong>Por que isso importa:</strong> Embora o sistema esteja ocioso agora, sob carga, a distribuição não ideal de IRQs pode levar a desequilíbrio na carga da CPU, resultando em menor desempenho ou latência em operações de I/O e rede.</p>
+
+                    <div class="solution">
+                        <strong>O que fazer:</strong><br>
+                        Isso pode ser um problema de permissão (SELinux, AppArmor) ou um bug. Verifique os logs do `irqbalance` mais a fundo (`sudo journalctl -u irqbalance --since '16 minutes ago'`). Tente reiniciar o serviço (`sudo systemctl restart irqbalance`). Se persistir, investigue se há alguma política de segurança impedindo a operação ou se uma atualização do kernel ou do pacote `irqbalance` é necessária. Pode ser necessário ajustar o arquivo de serviço ou desativar o SELinux temporariamente para testar.
+                    </div>
+
+                </div>
+
+                <div class="alert-box alert-warning">
+                    <h4>Monitoramento de Temperatura da CPU Ausente</h4>
+                    <p><strong>Situação:</strong> Não foi possível obter a temperatura da CPU ('Sensors não disponível'). Isso geralmente significa que o pacote `lm-sensors` não está instalado ou configurado.</p>
+                    <p><strong>Por que isso importa:</strong> Sem monitoramento de temperatura, você não consegue identificar se a CPU está superaquecendo, o que pode levar a problemas de desempenho (throttling), instabilidade do sistema ou até danos ao hardware em casos extremos.</p>
+
+                    <div class="solution">
+                        <strong>O que fazer:</strong><br>
+                        Instale o pacote `lm-sensors` e execute o `sensors-detect` para configurar os módulos do kernel. Em seguida, reinicie o serviço e verifique novamente. 
+`sudo dnf install lm_sensors`
+`sudo sensors-detect --auto` (responda 'yes' para a maioria das perguntas)
+`sudo systemctl start lm_sensors.service` (se o serviço for criado)
+`sensors` (para verificar as temperaturas)
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANÁLISE DE DISCOS -->
+            <div class="section">
+                <h2 class="section-title">💾 Análise de Discos e Armazenamento</h2>
+                <div class="text-content">
+                    Seu sistema de armazenamento está em excelente forma! A partição raiz (`/dev/mapper/fedora-root`), que é onde o sistema operacional e a maioria dos seus dados residem, está usando apenas 15.3% do seu espaço total de 14.94 GB. Isso significa que você tem aproximadamente 12.65 GB livres, o que é bastante confortável para um servidor. A partição `/boot`, essencial para a inicialização do sistema, também está tranquila com 42% de uso (0.39 GB de 0.94 GB). Ambas as partições usam o sistema de arquivos XFS, conhecido por seu desempenho e robustez em sistemas Linux. Quanto aos inodes (que são como 'ponteiros' para arquivos), o uso é insignificante (1% em ambas as partições), indicando que não há risco de esgotamento de inodes, mesmo com muitos arquivos pequenos. O status SMART para `/dev/vda` e `/dev/zram0` aparece como 'unknown' porque provavelmente são discos virtuais (em um ambiente de VM) e uma partição de memória comprimida (zram), respectivamente, para os quais os dados SMART não são aplicáveis ou não podem ser lidos da forma tradicional. No geral, o disco está saudável e com bastante capacidade.
+                </div>
+            </div>
+
+            <!-- ANÁLISE DE MEMÓRIA -->
+            <div class="section">
+                <h2 class="section-title">🧠 Análise de Memória</h2>
+                <div class="text-content">
+                    A memória do seu servidor está operando com bastante folga. Dos 3.81 GB de RAM disponíveis, apenas 0.5 GB (13.2%) estão sendo ativamente utilizados pelo sistema e processos. O restante está livre ou sendo usado como cache (0.53 GB), o que é normal e otimiza o desempenho, pois o Linux usa a memória disponível para armazenar dados frequentemente acessados. Sua área de swap (memória de 'reserva' em disco) de 3.81 GB está completamente livre (0%), o que é um ótimo sinal. Isso indica que o sistema não precisou recorrer ao swap, evitando a lentidão que o uso intenso de swap pode causar. Os processos que mais consomem memória são `firewalld`, `NetworkManager` e `systemd`, todos componentes essenciais do sistema e com consumo baixo. Em resumo, a memória está mais do que adequada para a carga atual e há bastante espaço para crescimento.
+                </div>
+            </div>
+
+            <!-- ANÁLISE DE CPU -->
+            <div class="section">
+                <h2 class="section-title">⚡ Análise de CPU</h2>
+                <div class="text-content">
+                    Seu processador está praticamente ocioso, o que é esperado para um sistema recém-inicializado e sem tarefas pesadas. O uso total da CPU está em 0.0%, com os dois núcleos também em níveis mínimos (1.0% e 0.0%). O 'load average', que mede a fila de tarefas esperando para serem executadas, também está em 0.0 nos últimos 1, 5 e 15 minutos, confirmando que o sistema não tem praticamente nenhuma carga. Isso é excelente! A frequência atual da CPU está em 3000.0 MHz, indicando que ela está pronta para trabalhar quando necessário. A única ressalva é que não foi possível obter a temperatura da CPU ('Sensors não disponível'), o que impede o monitoramento de superaquecimento. Recomendo instalar o `lm-sensors` para ter essa visibilidade.
+                </div>
+            </div>
+
+            <!-- ANÁLISE DE SISTEMA -->
+            <div class="section">
+                <h2 class="section-title">🖥️ Análise do Sistema</h2>
+                <div class="text-content">
+                    Seu sistema Fedora Linux 42 (Server Edition) está funcionando de maneira exemplar. Com apenas 16 minutos de uptime, ele acabou de iniciar, e o kernel 6.17.4-200.fc42.x86_64 está rodando sem problemas. O hostname 'localhost.localdomain' é padrão para uma instalação nova e pode ser alterado se for um servidor de produção. Todos os serviços críticos do `systemd` como `NetworkManager`, `sshd` (para acesso remoto), `firewalld` (firewall) e `chronyd` (sincronização de tempo) estão ativos e funcionando corretamente. Não há nenhum serviço com status 'failed', o que é um excelente indicativo de estabilidade. Com 171 processos no total, o sistema está leve e responsivo. Em suma, o sistema base está sólido e pronto para as suas cargas de trabalho.
+                </div>
+            </div>
+
+            <!-- ANÁLISE DE REDE -->
+            <div class="section">
+                <h2 class="section-title">🌐 Análise de Rede</h2>
+                <div class="text-content">
+                    A conectividade de rede está funcionando, mas com um ponto de atenção importante. A interface principal, está ativa e conseguiu se comunicar com a internet. O DNS está resolvendo corretamente. No entanto, a interface registrou 489 pacotes 'drops_in' (descartados na entrada) em apenas 16 minutos de operação, o que é um número alto para um curto período. Isso pode indicar problemas na camada física, no driver da placa de rede, ou alguma configuração de rede no hypervisor (se for uma VM) ou no switch/roteador. A velocidade da interface aparece como 0 Mbps, o que é comum em ambientes virtualizados ou quando a velocidade não é explicitamente reportada, mas não é necessariamente um problema. A interface loopback está normal. Atualmente, existem 16 conexões totais, com 7 em estado 'LISTEN' (aguardando conexões) e nenhuma 'ESTABLISHED' (ativa), 'TIME_WAIT' ou 'CLOSE_WAIT', o que é típico para um servidor que acabou de iniciar e não está servindo muitas requisições ainda. O principal aqui é investigar a causa dos pacotes descartados.
+                </div>
+            </div>
+
+            <!-- LOGS -->
+            <div class="section">
+                <h2 class="section-title">📋 Análise de Logs</h2>
+                <div class="text-content">
+                    Os logs do sistema estão relativamente limpos, sem erros críticos registrados, o que é um excelente sinal. No entanto, há alguns avisos que merecem atenção: 
+*   **`irqbalance` (Permissão Negada)**: Como mencionado nos alertas, o `irqbalance` teve problemas para gerenciar IRQs 43 e 44 devido a 'Permission denied'. Isso precisa ser investigado.
+*   **`avahi-daemon` (NSS e Hostname)**: Dois avisos do Avahi indicam 'No NSS support for mDNS' e que 'localhost' não é um nome de host mDNS adequado. Isso afeta a descoberta de serviços na rede local via mDNS. Instalar `nss-mdns` e configurar um hostname mais descritivo pode resolver.
+*   **`systemd-resolved` (Hostname)**: Um aviso 'Failed to determine the local hostname and LLMNR/mDNS names, ignoring: No such device or address' pode estar relacionado aos avisos do Avahi e à configuração do hostname.
+*   **`dbus-broker` (`org.freedesktop.home1`)**: Um pedido de ativação para `org.freedesktop.home1` falhou porque o serviço `dbus-org.freedesktop.home1.service` não foi encontrado. Isso pode indicar que `systemd-homed` está sendo esperado, mas não está presente ou configurado.
+*   **`sr0`**: O erro 'sr0: Process '/usr/sbin/pktsetup -i -d 11:0' failed with exit code 1' geralmente está relacionado a um drive de CD/DVD (sr0) que não existe ou não está configurado corretamente, comum em VMs. Geralmente é inofensivo.
+*   Outros avisos, como do `device-mapper` e variáveis de ambiente não definidas (`irqbalance`, `atd`), são geralmente informativos ou de baixa prioridade. 
+Não há erros de boot ou mensagens de kernel notáveis, o que é positivo.
+                </div>
+            </div>
+
+            <!-- RECOMENDAÇÕES -->
+            <div class="section">
+                <h2 class="section-title">💡 Recomendações e Próximos Passos</h2>
+                <ul class="recommendation-list">
+<li class="priority-alta">
+<strong>Investigar Perda de Pacotes na Rede </strong><br>
+A perda de 489 pacotes na interface em tão pouco tempo é preocupante. É crucial identificar a causa para garantir a estabilidade da rede. Comece verificando o ambiente virtual (se for VM) ou a infraestrutura física (cabos, switch).<br>
+<pre><code>sudo ethtool -i nome_da_interface
+sudo dmesg | grep nome_da_interface
+sudo tcpdump -i nome_da_interface -n -s0 -c 100
+sudo systemctl restart NetworkManager
+</code></pre>
+</li>
+<li class="priority-media">
+<strong>Instalar e Configurar lm-sensors para Monitoramento de Temperatura</strong><br>
+Para ter visibilidade sobre a saúde térmica da CPU e evitar problemas de superaquecimento ou degradação de desempenho, o pacote `lm-sensors` deve ser instalado e configurado.<br>
+<pre><code>sudo dnf install lm_sensors -y
+sudo sensors-detect --auto
+sudo systemctl start lm_sensors.service
+sensors
+</code></pre>
+</li>
+<li class="priority-media">
+<strong>Investigar Permissões do irqbalance</strong><br>
+O serviço `irqbalance` não conseguiu gerenciar a afinidade de algumas IRQs. Isso pode ser um problema de permissão (SELinux, AppArmor) ou configuração. É importante resolver para que a distribuição de carga da CPU seja otimizada.<br>
+<pre><code>sudo journalctl -u irqbalance --since '16 minutes ago'
+sudo systemctl restart irqbalance
+sudo sestatus
+</code></pre>
+</li>
+<li class="priority-baixa">
+<strong>Melhorar Suporte a mDNS e Nome de Host</strong><br>
+Os avisos do `avahi-daemon` sobre a falta de suporte NSS para mDNS e o hostname 'localhost' podem ser resolvidos para melhorar a descoberta de serviços na rede local.<br>
+<pre><code>sudo dnf install nss-mdns -y
+sudo hostnamectl set-hostname seu-novo-hostname
+sudo systemctl restart avahi-daemon systemd-resolved
+</code></pre>
+</li>
+<li class="priority-baixa">
+<strong>Verificar Serviço dbus-org.freedesktop.home1.service</strong><br>
+O aviso sobre a falha na ativação de 'org.freedesktop.home1' pode indicar que o sistema está procurando o `systemd-homed` mas ele não está presente ou configurado. Se você não pretende usar `systemd-homed`, isso pode ser ignorado ou investigado para evitar ruído nos logs.<br>
+<pre><code>sudo systemctl status dbus-org.freedesktop.home1.service
+sudo dnf install systemd-homed -y
+</code></pre>
+</li>
+</ul>
+            </div>
+
+            <!-- CONCLUSÃO -->
+            <div class="section">
+                <h2 class="section-title">📈 Conclusão</h2>
+                <div class="card">
+                    <div class="text-content">
+                        Para finalizar, seu servidor Fedora 42 está começando com o pé direito, apresentando um sistema base extremamente estável e com recursos abundantemente disponíveis. É um ambiente limpo, com todos os serviços essenciais funcionando perfeitamente, o que é ideal para um servidor. Os baixos níveis de uso de CPU, RAM e disco confirmam que ele está pronto para assumir suas tarefas sem gargalos iniciais.
+
+Contudo, como um bom administrador de sistemas, sabemos que a atenção aos detalhes é fundamental. A perda de pacotes na interface de rede é o ponto mais crítico e deve ser sua prioridade imediata para garantir uma comunicação robusta. Além disso, resolver os problemas de permissão do `irqbalance` e habilitar o monitoramento de temperatura da CPU são passos importantes para otimizar o desempenho e a visibilidade da saúde do hardware.
+
+Ao abordar essas recomendações, você garantirá que este servidor não apenas comece bem, mas continue a operar de forma eficiente e confiável a longo prazo. Mantenha o bom trabalho e vamos monitorar esses pontos para que seu Fedora continue voando!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>🤖 Relatório gerado por IA (Google Gemini)</strong></p>
+            <p>Sistema de Monitoramento de Saúde</p>
+            <p>Desenvolvido por Montezuma</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Para excluir venvs
+venv/
+__pycache__/

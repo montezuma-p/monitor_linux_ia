@@ -1,0 +1,411 @@
+{
+  "timestamp": "2025-10-27T14:57:10.650436",
+  "timestamp_unix": 1761587830,
+  "hostname": "localhost.localdomain",
+  "metrics": {
+    "disk": {
+      "partitions": [
+        {
+          "device": "/dev/mapper/fedora-root",
+          "mountpoint": "/",
+          "fstype": "xfs",
+          "total_gb": 14.94,
+          "used_gb": 2.29,
+          "free_gb": 12.65,
+          "percent_used": 15.3
+        },
+        {
+          "device": "/dev/vda2",
+          "mountpoint": "/boot",
+          "fstype": "xfs",
+          "total_gb": 0.94,
+          "used_gb": 0.39,
+          "free_gb": 0.54,
+          "percent_used": 42.0
+        }
+      ],
+      "inodes": [
+        {
+          "filesystem": "/dev/mapper/fedora-root",
+          "inodes_total": "7864320",
+          "inodes_used": "67320",
+          "inodes_free": "7797000",
+          "percent_used": 1,
+          "mountpoint": "/"
+        },
+        {
+          "filesystem": "/dev/vda2",
+          "inodes_total": "524288",
+          "inodes_used": "360",
+          "inodes_free": "523928",
+          "percent_used": 1,
+          "mountpoint": "/boot"
+        }
+      ],
+      "smart_status": [
+        {
+          "device": "/dev/zram0",
+          "available": false,
+          "health_status": "unknown",
+          "temperature": null,
+          "power_on_hours": null,
+          "reallocated_sectors": null
+        },
+        {
+          "device": "/dev/vda",
+          "available": false,
+          "health_status": "unknown",
+          "temperature": null,
+          "power_on_hours": null,
+          "reallocated_sectors": null
+        }
+      ]
+    },
+    "memory": {
+      "ram": {
+        "total_gb": 3.81,
+        "available_gb": 3.31,
+        "used_gb": 0.5,
+        "free_gb": 3.0,
+        "percent_used": 13.2,
+        "buffers_gb": 0.0,
+        "cached_gb": 0.53,
+        "shared_gb": 0.0
+      },
+      "swap": {
+        "total_gb": 3.81,
+        "used_gb": 0.0,
+        "free_gb": 3.81,
+        "percent_used": 0.0,
+        "swap_in_gb": 0.0,
+        "swap_out_gb": 0.0
+      }
+    },
+    "cpu": {
+      "usage": {
+        "percent_total": 0.0,
+        "percent_per_core": [
+          1.0,
+          0.0
+        ],
+        "core_count": 2,
+        "logical_count": 2,
+        "frequency_mhz": {
+          "current": 3000.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "load_average": {
+        "1_min": 0.0,
+        "5_min": 0.0,
+        "15_min": 0.0,
+        "cpu_count": 2,
+        "normalized_1min": 0.0,
+        "normalized_5min": 0.0,
+        "normalized_15min": 0.0
+      },
+      "temperature": {
+        "error": "Sensors não disponível. Instale lm-sensors"
+      }
+    },
+    "system": {
+      "info": {
+        "hostname": "localhost.localdomain",
+        "os": "Linux",
+        "os_version": "#1 SMP PREEMPT_DYNAMIC Sun Oct 19 18:47:49 UTC 2025",
+        "distribution": "Fedora Linux 42 (Server Edition)",
+        "kernel": "6.17.4-200.fc42.x86_64",
+        "architecture": "x86_64",
+        "boot_time": "2025-10-27T14:41:02",
+        "uptime_seconds": 969,
+        "uptime_human": "16m"
+      },
+      "processes": {
+        "total_processes": 171,
+        "top_cpu_usage": [
+          {
+            "pid": 1,
+            "name": "systemd",
+            "cpu_percent": 0.0
+          },
+          {
+            "pid": 2,
+            "name": "kthreadd",
+            "cpu_percent": 0.0
+          },
+          {
+            "pid": 3,
+            "name": "pool_workqueue_release",
+            "cpu_percent": 0.0
+          },
+          {
+            "pid": 4,
+            "name": "kworker/R-rcu_gp",
+            "cpu_percent": 0.0
+          },
+          {
+            "pid": 5,
+            "name": "kworker/R-sync_wq",
+            "cpu_percent": 0.0
+          }
+        ],
+        "top_memory_usage": [
+          {
+            "pid": 833,
+            "name": "firewalld",
+            "memory_percent": 1.13
+          },
+          {
+            "pid": 897,
+            "name": "NetworkManager",
+            "memory_percent": 0.55
+          },
+          {
+            "pid": 1,
+            "name": "systemd",
+            "memory_percent": 0.5
+          },
+          {
+            "pid": 569,
+            "name": "systemd-journald",
+            "memory_percent": 0.43
+          },
+          {
+            "pid": 693,
+            "name": "systemd-resolved",
+            "memory_percent": 0.38
+          }
+        ]
+      },
+      "systemd_services": [
+        {
+          "name": "NetworkManager",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "systemd-journald",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "sshd",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "firewalld",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "chronyd",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "dbus",
+          "status": "active",
+          "active": true
+        },
+        {
+          "name": "polkit",
+          "status": "active",
+          "active": true
+        }
+      ],
+      "failed_services": []
+    },
+    "network": {
+      "interfaces": [
+        {
+          "name": "",
+          "is_up": true,
+          "speed_mbps": 0,
+          "mtu":,
+          "addresses": [
+            {
+              "family": "",
+              "address": "",
+              "netmask": ""
+            },
+            {
+              "family": "",
+              "address": "",
+              "netmask": ""
+            },
+            {
+              "family": "",
+              "address": ""
+            }
+          ],
+          "statistics": {
+            "bytes_sent_mb": 0.0,
+            "bytes_recv_mb": 0.0,
+            "packets_sent": 11,
+            "packets_recv": 11,
+            "errors_in": 0,
+            "errors_out": 0,
+            "drops_in": 0,
+            "drops_out": 0
+          }
+        },
+        {
+          "name": "",
+          "is_up": true,
+          "speed_mbps": 0,
+          "mtu": ,
+          "addresses": [
+            {
+              "family": "",
+              "address": "",
+              "netmask": ""
+            },
+            {
+              "family": "",
+              "address": "",
+              "netmask": ""
+            },
+            {
+              "family": "",
+              "address": ""
+            }
+          ],
+          "statistics": {
+            "bytes_sent_mb": 1.61,
+            "bytes_recv_mb": 68.36,
+            "packets_sent": 24406,
+            "packets_recv": 48301,
+            "errors_in": 0,
+            "errors_out": 0,
+            "drops_in": 489,
+            "drops_out": 0
+          }
+        }
+      ],
+      "connections": {
+        "total": 16,
+        "established": 0,
+        "listen": 7,
+        "time_wait": 0,
+        "close_wait": 0
+      },
+      "dns": {
+        "nameservers": [
+          ""
+        ],
+        "can_resolve": true
+      },
+      "connectivity": [
+        {
+          "host": "",
+          "reachable": true,
+          "latency_ms": 
+        },
+        {
+          "host": "",
+          "reachable": true,
+          "latency_ms": 
+        }
+      ]
+    },
+    "logs": {
+      "errors": [],
+      "warnings": [
+        {
+          "timestamp": "1761586864505420",
+          "unit": "kernel",
+          "message": "device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log."
+        },
+        {
+          "timestamp": "1761586867899871",
+          "unit": "kernel",
+          "message": "kauditd_printk_skb: 7 callbacks suppressed"
+        },
+        {
+          "timestamp": "1761586868833533",
+          "unit": "systemd-udevd.service",
+          "message": "PV /dev/vda3 online, VG fedora is complete."
+        },
+        {
+          "timestamp": "1761586868870179",
+          "unit": "systemd-udevd.service",
+          "message": "sr0: Process '/usr/sbin/pktsetup -i -d 11:0' failed with exit code 1."
+        },
+        {
+          "timestamp": "1761586869692261",
+          "unit": "avahi-daemon.service",
+          "message": "WARNING: No NSS support for mDNS detected, consider installing nss-mdns!"
+        },
+        {
+          "timestamp": "1761586869692652",
+          "unit": "avahi-daemon.service",
+          "message": "System host name is set to 'localhost'. This is not a suitable mDNS host name, looking for alternatives."
+        },
+        {
+          "timestamp": "1761586869782873",
+          "unit": "irqbalance.service",
+          "message": "irqbalance.service: Referenced but unset environment variable evaluates to an empty string: IRQBALANCE_ARGS"
+        },
+        {
+          "timestamp": "1761586871121756",
+          "unit": "systemd-resolved.service",
+          "message": "Failed to determine the local hostname and LLMNR/mDNS names, ignoring: No such device or address"
+        },
+        {
+          "timestamp": "1761586871262471",
+          "unit": "atd.service",
+          "message": "atd.service: Referenced but unset environment variable evaluates to an empty string: OPTS"
+        },
+        {
+          "timestamp": "1761586871388234",
+          "unit": "init.scope",
+          "message": "iscsi.service: Unit cannot be reloaded because it is inactive."
+        },
+        {
+          "timestamp": "1761586871428575",
+          "unit": "init.scope",
+          "message": "iscsi.service: Unit cannot be reloaded because it is inactive."
+        },
+        {
+          "timestamp": "1761586879809454",
+          "unit": "irqbalance.service",
+          "message": "Cannot change IRQ 43 affinity: Permission denied"
+        },
+        {
+          "timestamp": "1761586879809777",
+          "unit": "irqbalance.service",
+          "message": "IRQ 43 affinity is now unmanaged"
+        },
+        {
+          "timestamp": "1761586879809830",
+          "unit": "irqbalance.service",
+          "message": "Cannot change IRQ 44 affinity: Permission denied"
+        },
+        {
+          "timestamp": "1761586879809855",
+          "unit": "irqbalance.service",
+          "message": "IRQ 44 affinity is now unmanaged"
+        },
+        {
+          "timestamp": "1761586956067533",
+          "unit": "dbus-broker.service",
+          "message": "Activation request for 'org.freedesktop.home1' failed: The systemd unit 'dbus-org.freedesktop.home1.service' could not be found."
+        }
+      ],
+      "boot_errors": [
+        "-- No entries --"
+      ],
+      "kernel_messages": [],
+      "collection_period_hours": 24
+    }
+  },
+  "alerts": [],
+  "summary": {
+    "total_alerts": 0,
+    "critical_alerts": 0,
+    "warning_alerts": 0,
+    "health_status": "healthy"
+  }
+}

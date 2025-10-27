@@ -1,69 +1,123 @@
-# 📊 Monitor Completo - Sistema de Monitoramento e Análise Inteligente
+<div align="center">
 
-## Introdução
+# 🔥 Monitor Linux IA 🔥
 
-Monitor Completo é uma solução integrada de monitoramento de saúde de sistemas Linux que combina coleta automatizada de métricas com análise inteligente baseada em IA. O sistema foi desenvolvido para oferecer visibilidade profunda sobre o estado operacional de servidores e workstations, transformando dados técnicos brutos em insights compreensíveis e acionáveis.
+### Sistema Inteligente de Monitoramento de Saúde para Linux
 
-## Justificativa e Motivação
+<img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python">
+<img src="https://img.shields.io/badge/AI-Gemini%202.5%20Flash-purple.svg" alt="AI">
+<img src="https://img.shields.io/badge/Platform-Linux-orange.svg" alt="Platform">
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 
-Administradores de sistemas frequentemente enfrentam o desafio de coletar, interpretar e agir sobre grandes volumes de métricas de sistema. Ferramentas tradicionais oferecem dados brutos, mas exigem expertise significativa para interpretação correta e identificação de problemas.
+**Monitoramento Inteligente em Tempo Real**  
+Coleta automática de métricas + Análise por IA = Relatórios humanizados e acionáveis
 
-Este projeto nasceu da necessidade de democratizar o acesso à análise de saúde de sistemas, permitindo que tanto especialistas quanto usuários menos técnicos possam compreender o estado de suas máquinas de forma clara e objetiva. Ao combinar coleta automatizada com análise via IA generativa, eliminamos a necessidade de interpretação manual de métricas complexas.
+</div>
 
-A solução é especialmente relevante para:
+---
 
-- **Equipes pequenas** que não possuem especialistas dedicados em monitoramento
-- **Ambientes educacionais** onde transparência e clareza são fundamentais
-- **Desenvolvedores** que precisam monitorar ambientes de desenvolvimento sem overhead
-- **Entusiastas** que desejam entender melhor o comportamento de seus sistemas
+## 📋 Índice
 
-## Arquitetura da Solução
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [Características](#-características)
+- [Arquitetura](#-arquitetura)
+- [Instalação](#-instalação)
+- [Uso](#-uso)
+- [Exemplos de Saída](#-exemplos-de-saída)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Contribuindo](#-contribuindo)
 
-O Monitor Completo é composto por dois módulos principais que trabalham em conjunto:
+---
 
-### Health Monitor
+## 🎯 Sobre o Projeto
 
-Coletor de métricas que opera de forma não-invasiva, extraindo informações detalhadas sobre:
+O **Monitor Linux IA** é uma solução completa de monitoramento de sistemas Linux que combina coleta de métricas em tempo real com análise inteligente usando **Google Gemini 2.5 Flash**. 
 
-- Utilização e temperatura de CPU
-- Consumo de memória RAM e swap
-- Uso de disco, I/O e saúde SMART
-- Estatísticas de rede e conectividade
-- Logs do sistema e eventos críticos
-- Estado de serviços systemd
+### Componentes Principais
 
-As métricas são coletadas pontualmente e exportadas em formato JSON estruturado, facilitando processamento posterior e integração com outras ferramentas.
+| Componente | Descrição | Tecnologia | Output |
+|------------|-----------|------------|--------|
+| **⚙️ Health Monitor** | Coleta métricas detalhadas do sistema (CPU, Memória, Disco, Rede, Logs, Processos) | Python + psutil | JSON estruturado |
+| **🤖 IA Report** | Analisa dados com IA e gera alertas, recomendações, insights e soluções | Python + Gemini API | HTML interativo |
 
-### AI Report
+---
 
-Analisador inteligente que consome os JSONs gerados pelo Health Monitor e utiliza a API Gemini do Google para gerar relatórios HTML humanizados. A IA interpreta as métricas, identifica padrões, destaca anomalias e oferece recomendações contextualizadas em linguagem acessível.
+## ✨ Características
 
-### Fluxo de Operação
+<details open>
+<summary><b>🔍 Monitoramento Abrangente</b></summary>
 
-1. O Health Monitor é executado e coleta métricas do sistema
-2. Um arquivo JSON timestamped é gerado com todos os dados
-3. O AI Report processa o JSON mais recente
-4. A IA Gemini analisa os dados e gera insights estruturados
-5. Um relatório HTML completo é produzido para visualização
+- ✅ **CPU**: Uso, frequências, processos top, temperatura
+- ✅ **Memória**: RAM, Swap, cache, buffers
+- ✅ **Disco**: Uso por partição, I/O, filesystems
+- ✅ **Rede**: Interfaces, tráfego, conexões ativas
+- ✅ **Sistema**: Uptime, carga, usuários, serviços
+- ✅ **Logs**: Análise de journalctl com detecção de padrões
+</details>
 
-## Instalação e Configuração
+<details open>
+<summary><b>🧠 Análise Inteligente com IA</b></summary>
+
+- 🤖 Interpretação contextual das métricas
+- 📊 Identificação automática de anomalias
+- 🎯 Recomendações específicas e acionáveis
+- 💡 Soluções práticas com comandos prontos
+- 📈 Análise de tendências e previsões
+</details>
+
+<details open>
+<summary><b>📄 Relatórios Visuais</b></summary>
+
+- 🎨 HTML responsivo com gradientes e animações
+- 📱 Design moderno e profissional
+- 🔴🟡🟢 Sistema de alertas por cores
+- 📊 Cards e gráficos visuais
+</details>
+
+---
+
+## 🏗️ Arquitetura
+
+```mermaid
+graph LR
+    A[🖥️ Sistema Linux] --> B[📊 Health Monitor]
+    B --> C[💾 JSON Raw]
+    C --> D[🤖 IA Report]
+    D --> E[🌐 HTML Report]
+    E --> F[👤 Usuário]
+    
+    style A fill:#667eea,color:#fff
+    style B fill:#764ba2,color:#fff
+    style C fill:#f093fb,color:#fff
+    style D fill:#f5576c,color:#fff
+    style E fill:#43e97b,color:#fff
+    style F fill:#38f9d7,color:#000
+```
+
+**Pipeline de Execução:**
+
+```
+run.sh → Health Monitor (Python) → health_YYYYMMDD_HHMMSS.json → IA Report (Gemini) → health_YYYYMMDD_HHMMSS_report_YYYYMMDD_HHMMSS.html
+```
+
+---
+
+## 🚀 Instalação
 
 ### Pré-requisitos
 
-- Python 3.8 ou superior
-- Sistema operacional Linux (otimizado para Fedora/RHEL)
-- Conta Google Cloud com acesso à API Gemini
+- Python 3.8+
+- Linux (testado em Fedora Workstation)
+- Chave de API do Google Gemini ([obtenha aqui](https://aistudio.google.com/app/apikey))
 
-### Passo 1: Clonar o Repositório
+### Passo 1: Clone o Repositório
 
 ```bash
-git clone <url-do-repositorio>
-cd monitor_completo
+git clone https://github.com/montezuma-p/monitor_linux_ia.git
+cd monitor_linux_ia
 ```
 
-### Passo 2: Configurar Ambientes Virtuais
-
-**Para o Health Monitor:**
+### Passo 2: Configure o Health Monitor
 
 ```bash
 cd health_monitor
@@ -74,7 +128,7 @@ deactivate
 cd ..
 ```
 
-**Para o AI Report:**
+### Passo 3: Configure o IA Report
 
 ```bash
 cd iareport
@@ -85,47 +139,42 @@ deactivate
 cd ..
 ```
 
-### Passo 3: Obter API Key do Gemini
-
-1. Acesse [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Crie ou selecione um projeto
-3. Gere uma nova API key
-4. Copie a chave gerada
-
-### Passo 4: Configurar Variável de Ambiente
-
-Adicione a API key ao seu arquivo `~/.bashrc` para persistência entre sessões:
+### Passo 4: Configure a Chave da API
 
 ```bash
-echo 'export GEMINI_API_KEY="sua_chave_aqui"' >> ~/.bashrc
-source ~/.bashrc
+export GEMINI_API_KEY='sua_chave_aqui'
+
+# Para tornar permanente, adicione ao ~/.bashrc:
+echo "export GEMINI_API_KEY='sua_chave_aqui'" >> ~/.bashrc
 ```
 
-**Alternativa temporária (válida apenas para a sessão atual):**
+### Passo 5: Ajuste Permissões
 
 ```bash
-export GEMINI_API_KEY="sua_chave_aqui"
+chmod +x run.sh
 ```
 
-### Passo 5: Verificar Configuração
+---
 
-Confirme que a variável está configurada corretamente:
+## 💻 Uso
+
+### Execução Completa (Recomendado)
+
+Execute o pipeline completo com um único comando:
 
 ```bash
-echo $GEMINI_API_KEY
+./run.sh
 ```
 
-Deve exibir sua API key.
+Isso irá:
+1. 📊 Coletar todas as métricas do sistema
+2. 💾 Salvar JSON em `exemplosdesaida/saidasraw/`
+3. 🤖 Analisar com IA
+4. 🌐 Gerar relatório HTML em `exemplosdesaida/saidascomia/`
 
-### Passo 6: Configurar Parâmetros (Opcional)
+### Execução Manual
 
-Edite `health_monitor/config.json` para ajustar thresholds de alerta, habilitar/desabilitar funcionalidades específicas ou modificar diretórios de saída.
-
-## Uso
-
-### Execução Manual Individual
-
-**Health Monitor:**
+#### Health Monitor (Coleta)
 
 ```bash
 cd health_monitor
@@ -134,7 +183,7 @@ python3 health_monitor.py
 deactivate
 ```
 
-**AI Report:**
+#### IA Report (Análise)
 
 ```bash
 cd iareport
@@ -143,172 +192,201 @@ python3 reportia.py
 deactivate
 ```
 
-### Execução Automatizada Completa
+---
 
-Um script orquestrador está disponível na raiz do projeto para executar todo o pipeline automaticamente:
+## 🎨 Exemplos de Saída
 
-```bash
-chmod +x run.sh  # Apenas na primeira vez
-./run.sh
+Veja abaixo exemplos reais de relatórios gerados pelo sistema:
+
+---
+
+### 📊 Resumo Inicial
+
+O relatório começa com uma visão geral do status do sistema, destacando métricas principais e o estado de saúde geral.
+
+![Resumo Inicial](docs/screenshots/Resumo_inicio.png)
+
+---
+
+### 🚨 Alertas Inteligentes
+
+A IA identifica automaticamente problemas e anomalias, priorizando-os por severidade (Crítico, Atenção, Info).
+
+![Alertas](docs/screenshots/Alertas.png)
+
+---
+
+### 💾 Discos e Memória
+
+Análise detalhada do uso de discos e memória, com indicadores visuais de utilização e recomendações.
+
+![Discos e Memória](docs/screenshots/Discos_memoria.png)
+
+---
+
+### ⚙️ CPU, Sistema e Rede
+
+Métricas de processamento, carga do sistema, temperatura e estatísticas de rede em tempo real.
+
+![CPU, Sistema e Rede](docs/screenshots/cpu_sistema_rede.png)
+
+---
+
+### 📝 Análise de Logs
+
+A IA analisa os logs do sistema (journalctl) e identifica padrões, erros e avisos importantes.
+
+![Logs](docs/screenshots/logs.png)
+
+---
+
+### 💡 Recomendações Inteligentes
+
+Sugestões práticas e acionáveis geradas pela IA, com comandos prontos para executar.
+
+![Recomendações](docs/screenshots/recomendações.png)
+
+---
+
+### ✅ Conclusão
+
+Resumo final com avaliação geral da saúde do sistema e próximos passos recomendados.
+
+![Conclusão](docs/screenshots/conclusao.png)
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+monitor_linux_ia/
+├── 📜 run.sh                          # Script orquestrador principal
+├── 📂 health_monitor/                 # Módulo de coleta de métricas
+│   ├── health_monitor.py             # Script principal
+│   ├── config.json                   # Configurações e thresholds
+│   ├── requirements.txt              # Dependências Python
+│   ├── documentacao_tecnica.md       # Documentação técnica
+│   └── modules/                      # Módulos de coleta
+│       ├── __init__.py
+│       ├── alerts.py                 # Sistema de alertas
+│       ├── cpu.py                    # Métricas de CPU
+│       ├── disk.py                   # Métricas de disco
+│       ├── memory.py                 # Métricas de memória
+│       ├── network.py                # Métricas de rede
+│       ├── system.py                 # Informações do sistema
+│       └── logs.py                   # Análise de logs
+│
+├── 📂 iareport/                       # Módulo de análise com IA
+│   ├── reportia.py                   # Gerador de relatórios
+│   ├── template.html                 # Template HTML base
+│   ├── requirements.txt              # Dependências Python
+│   └── documentacao_tecnica.md       # Documentação técnica
+│
+├── 📂 exemplosdesaida/                # Exemplos de saída
+│   ├── saidasraw/                    # JSONs coletados
+│   │   └── health_YYYYMMDD_HHMMSS.json
+│   └── saidascomia/                  # Relatórios HTML
+│       └── health_*_report_*.html
+│
+└── 📂 docs/                           # Documentação
+    └── screenshots/                  # Screenshots dos relatórios
+        ├── Resumo_inicio.png
+        ├── Alertas.png
+        ├── Discos_memoria.png
+        ├── cpu_sistema_rede.png
+        ├── logs.png
+        ├── recomendações.png
+        └── conclusao.png
 ```
 
-O script `run.sh` irá:
+---
 
-1. Executar o Health Monitor para coletar métricas atuais
-2. Executar o AI Report para gerar análise do último JSON
-3. Exibir mensagem com localização dos arquivos gerados
+## 🔧 Configuração Avançada
 
-### Automação via Cron
+### Arquivo `health_monitor/config.json`
 
-Para monitoramento periódico, adicione ao crontab:
-
-```bash
-# Executar a cada 6 horas
-0 */6 * * * /caminho/completo/para/monitor_completo/run.sh
-
-# Executar diariamente às 9h
-0 9 * * * /caminho/completo/para/monitor_completo/run.sh
-```
-
-## Estrutura de Diretórios
-
-```
-monitor_completo/
-├── health_monitor/              # Módulo coletor de métricas
-│   ├── modules/                 # Módulos especializados por categoria
-│   ├── venv/                    # Ambiente virtual Python
-│   ├── config.json              # Configurações e thresholds
-│   ├── health_monitor.py        # Script principal
-│   ├── requirements.txt         # Dependências Python
-│   └── documentacao_tecnica.md  # Documentação técnica detalhada
-├── iareport/                    # Módulo de análise por IA
-│   ├── venv/                    # Ambiente virtual Python
-│   ├── reportia.py              # Script principal
-│   ├── template.html            # Template do relatório HTML
-│   ├── requirements.txt         # Dependências Python
-│   └── documentacao_tecnica.md  # Documentação técnica detalhada
-├── exemplosdesaida/             # Diretório de saídas
-│   ├── saidasraw/               # JSONs brutos do Health Monitor
-│   └── saidascomia/             # Relatórios HTML do AI Report
-├── run.sh                       # Script orquestrador
-└── README.md                    # Esta documentação
-```
-
-## Saídas Geradas
-
-### JSONs Brutos (exemplosdesaida/saidasraw/)
-
-Arquivos nomeados como `health_YYYYMMDD_HHMMSS.json` contendo:
-
-- Metadados de coleta
-- Métricas categorizadas por componente
-- Alertas gerados com base em thresholds
-- Timestamps precisos de coleta
-
-### Relatórios HTML (exemplosdesaida/saidascomia/)
-
-Arquivos nomeados como `report_YYYYMMDD_HHMMSS.html` contendo:
-
-- Resumo executivo em linguagem clara
-- Cards visuais com métricas principais
-- Alertas críticos destacados
-- Análise detalhada por componente
-- Recomendações de ação quando aplicável
-
-## Personalização
-
-### Ajustar Thresholds de Alerta
-
-Edite `health_monitor/config.json` e modifique os valores em `thresholds`:
+Personalize os thresholds de alertas:
 
 ```json
 {
+  "output_dir": "../exemplosdesaida/saidasraw",
   "thresholds": {
-    "disk_usage_warning": 80,
-    "disk_usage_critical": 90,
-    "memory_usage_warning": 80,
-    "cpu_temp_warning": 70
-  }
-}
-```
-
-### Modificar Visual dos Relatórios
-
-Edite `iareport/template.html` para customizar cores, fontes, logo ou estrutura das seções HTML.
-
-### Desabilitar Funcionalidades
-
-No `config.json`, seção `monitoring`, ajuste flags booleanas:
-
-```json
-{
+    "cpu_critical": 90,
+    "cpu_warning": 70,
+    "memory_critical": 90,
+    "memory_warning": 80,
+    "disk_critical": 90,
+    "disk_warning": 80,
+    "swap_warning": 50
+  },
   "monitoring": {
-    "check_smart": false,
-    "check_systemd_services": true,
-    "check_journal_errors": true
+    "log_lines": 100,
+    "top_processes": 10,
+    "network_interfaces": "all"
   }
 }
 ```
 
-## Solução de Problemas
+---
 
-### "GEMINI_API_KEY não encontrada"
+## 🎓 Como Funciona
 
-Verifique se a variável foi exportada corretamente:
-```bash
-echo $GEMINI_API_KEY
-```
+### 1️⃣ **Coleta de Métricas** (Health Monitor)
 
-Se vazia, configure novamente no `~/.bashrc` e execute `source ~/.bashrc`.
+O `health_monitor.py` executa módulos especializados que coletam:
+- Informações de CPU via `psutil` e `/proc`
+- Métricas de memória e swap
+- Status de discos e partições
+- Estatísticas de rede
+- Logs do sistema via `journalctl`
+- Processos e serviços ativos
 
-### "Nenhum relatório encontrado"
+**Saída**: JSON estruturado com timestamp e todas as métricas
 
-Execute primeiro o Health Monitor para gerar um JSON antes de rodar o AI Report.
+### 2️⃣ **Análise Inteligente** (IA Report)
 
-### Permissão negada no run.sh
+O `reportia.py`:
+1. Lê o JSON mais recente
+2. Constrói um prompt detalhado para o Gemini
+3. Solicita análise contextual e recomendações
+4. Recebe resposta em JSON estruturado
+5. Injeta os dados no template HTML
+6. Gera relatório visual interativo
 
-Torne o script executável:
-```bash
-chmod +x run.sh
-```
+**Saída**: HTML com gradientes, cards, alertas coloridos e recomendações
 
-### Módulo psutil não encontrado
+---
 
-Ative o ambiente virtual correto antes de executar:
-```bash
-source health_monitor/venv/bin/activate
-```
+## 🤝 Contribuindo
 
-### Erro de API do Gemini
+Contribuições são bem-vindas! Sinta-se livre para:
 
-Verifique:
-- API key válida e com quota disponível
-- Conectividade com internet
-- Projeto Google Cloud ativo
+1. 🍴 Fork o projeto
+2. 🌿 Criar uma branch (`git checkout -b feature/MinhaFeature`)
+3. ✅ Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
+4. 📤 Push para a branch (`git push origin feature/MinhaFeature`)
+5. 🔀 Abrir um Pull Request
 
-## Contribuindo
+---
 
-Contribuições são bem-vindas! Por favor:
+## 📝 Licença
 
-1. Faça fork do repositório
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Licença
+---
 
-Este projeto está licenciado sob os termos descritos no arquivo LICENSE.
+<div align="center">
 
-## Créditos
+## 🌟 Desenvolvido por Montezuma 🌟
 
-Desenvolvido por Montezuma
+💻 Monitoramento Inteligente • 🤖 Powered by AI • 🚀 Open Source
 
-Utiliza:
-- **psutil** para coleta de métricas do sistema
-- **Google Gemini API** para análise inteligente
-- Template HTML com design responsivo moderno
+Se este projeto foi útil, considere dar uma ⭐ no GitHub!
 
-## Suporte
+</div>
 
-Para questões, bugs ou sugestões, abra uma issue no repositório do projeto.
+---
+
+<div align="center">
+<sub>Built with ❤️ using Python, Google Gemini AI, and lots of ☕</sub>
+</div>

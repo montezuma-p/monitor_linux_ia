@@ -1,3 +1,113 @@
-# Para excluir venvs
+# ====================
+# Python
+# ====================
+# Virtual Environments
 venv/
+env/
+ENV/
+.venv/
+*.virtualenv
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ====================
+# Dados Sensíveis
+# ====================
+# Arquivos de ambiente com secrets
+.env
+.env.local
+.env.*.local
+*.env
+secrets/
+credentials/
+
+# Chaves e certificados
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa*
+id_dsa*
+
+# ====================
+# Saídas do Sistema
+# ====================
+# Logs e saídas temporárias (mas NÃO os exemplos em exemplosdesaida/)
+*.log
+logs/
+*.tmp
+*.temp
+
+# Nota: Os arquivos em exemplosdesaida/ são mantidos como exemplos de saída
+
+# ====================
+# IDEs e Editores
+# ====================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ====================
+# Sistema Operacional
+# ====================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ====================
+# Backups e Temporários
+# ====================
+*.bak
+*.backup
+*.old
+*~
+.cache/
